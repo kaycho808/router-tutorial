@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
+import Profiles from './Profiles';
+import HistorySample from './HistorySample';
 
-function App() {
+const App = () => {
+  const location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">home</Link>
+        </li>
+        <li>
+          <Link to="/about">about</Link>
+        </li>
+        <li>
+          <Link to="/profiles">profiles</Link>
+        </li>
+        <li>
+          <Link to="/navigate">navigate example</Link>
+        </li>
+      </ul>
+      <hr />
+      <Routes>
+        <Route path="/" element={<Home />} exact />
+        <Route path="/about" element={<About />} />
+        <Route path="/info" element={<About />} />
+        <Route path="/profiles/*" element={<Profiles />} />
+        <Route path="/navigate" element={<HistorySample />} />
+        <Route
+          path="/*"
+          element={
+            <div>
+              <h2>page does not exist:</h2>
+              <p>{location.pathname}</p>
+            </div>
+          }
+        />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
